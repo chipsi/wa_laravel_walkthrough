@@ -9,6 +9,7 @@
 			<tr>
 				<th>Jméno</th>
 				<th>Adresa</th>
+				<th>Smazat</th>
 			</tr>
 			@foreach($persons as $person)
 			<tr>
@@ -18,6 +19,12 @@
 				@else
 				<td>Nema adresu</td>
 				@endif
+				<td>
+					<form action="{{route('person::delete', ['id' => $person->id])}}" method="post" onsubmit="return confirm('Opravdu smazat?')">
+						{{ csrf_field() }}
+						<input type="submit" value="Smazat" />
+					</form>
+				</td>
 			</tr>
 			@endforeach
 		</table>

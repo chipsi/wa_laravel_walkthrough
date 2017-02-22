@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::get('/osoby', 'PersonsList@show')->name('person::list');
+Route::post('/osoby/smazat/{id}', 'PersonsList@delete')->name('person::delete');

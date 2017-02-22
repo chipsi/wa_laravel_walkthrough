@@ -16,4 +16,14 @@ class PersonsList extends Controller
 		]);
 	}
 
+	function delete(Request $r, $id) {
+		if(!empty($id)) {
+			$p = Person::find($id);
+			if($p) {
+				$p->delete();
+			}
+		}
+		return redirect(route('person::list'));
+	}
+
 }
