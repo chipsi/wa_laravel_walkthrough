@@ -26,4 +26,23 @@ class PersonsList extends Controller
 		return redirect(route('person::list'));
 	}
 
+	function create() {
+		$locations = Location::orderBy('city')->get();
+		return view('persons/create', [
+			'locations' => $locations
+		]);
+	}
+
+	function insert(Request $r) {
+		if($r->has('nickname') && $r->has('first_name') && $r->has('last_name')) {
+			$p = new Person();
+			$p->nickname = $r->get('nickname');
+			$p->first_name = $r->get('first_name');
+			$p->last_name = $r->get('last_name');
+			$p->id_location = $r->get('id_location');
+			$p->save();
+		}
+		return redirect(route('person::list'));
+	}
+
 }

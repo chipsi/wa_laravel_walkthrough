@@ -5,6 +5,13 @@
 		<meta charset="utf-8" />
 	</head>
 	<body>
+		<nav>
+			<a href="{{route('person::list')}}">Vypis osob</a>
+			<a href="{{route('person::create')}}">Nova osoba</a>
+		</nav>
+
+		<hr />
+
 		<table>
 			<tr>
 				<th>Jméno</th>
