@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('person::list'));
 });
 
 Route::get('/osoby', 'PersonsList@show')->name('person::list');
