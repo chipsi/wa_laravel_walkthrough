@@ -30,6 +30,18 @@
 							<a href="{{route('person::create')}}">Nova osoba</a>
 						</li>
 					</ul>
+
+					@if (Auth::guest())
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="{{ route('login') }}">Login</a></li>
+						<li><a href="{{ route('register') }}">Register</a></li>
+					</ul>
+					@else
+						<form action="{{ route('logout') }}" method="post" class="navbar-form navbar-right">
+							{{ csrf_field() }}
+							<input class="btn btn-default" type="submit" value="Logout {{ Auth::user()->name }}" />
+						</form>
+					@endif
 				</div>
 			</div>
 		</nav>

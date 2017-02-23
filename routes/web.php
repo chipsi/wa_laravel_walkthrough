@@ -12,11 +12,15 @@
 */
 
 Route::get('/', function () {
-    return redirect(route('person::list'));
+    return redirect(route('login'));
 });
 
-Route::get('/osoby', 'PersonsList@show')->name('person::list');
-Route::post('/osoby/smazat/{id}', 'PersonsList@delete')->name('person::delete');
+Auth::routes();
 
-Route::get('/osoby/vytvorit', 'PersonsList@create')->name('person::create');
-Route::post('/osoby/pridat', 'PersonsList@insert')->name('person::insert');
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('/osoby', 'PersonsList@show')->name('person::list');
+	Route::post('/osoby/smazat/{id}', 'PersonsList@delete')->name('person::delete');
+
+	Route::get('/osoby/vytvorit', 'PersonsList@create')->name('person::create');
+	Route::post('/osoby/pridat', 'PersonsList@insert')->name('person::insert');
+});
