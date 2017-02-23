@@ -58,7 +58,7 @@ class PersonsList extends Controller
 			return redirect(route('person::create'))->withInput($r->all)->with('duplicate_err', true);
 		}
 
-		return redirect(route('person::list'));
+		return redirect(route('person::list'))->with('successful_insert', true);
 	}
 
 }

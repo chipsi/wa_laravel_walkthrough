@@ -12,6 +12,12 @@
 
 		<hr />
 
+		@if (session('successful_insert'))
+		<div class="alert alert-success">
+			Osoba byla uspesne vlozena.
+		</div>
+		@endif
+
 		<table>
 			<tr>
 				<th>Jméno</th>
