@@ -9,6 +9,12 @@
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
 </div>
 @endif
+@if (session('successful_delete'))
+<div class="alert alert-success alert-dismissible">
+	Osoba byla uspesne smazana.
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+@endif
 
 <table class="table table-striped">
 	<tr>

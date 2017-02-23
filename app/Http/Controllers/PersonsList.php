@@ -34,7 +34,7 @@ class PersonsList extends Controller
 				$p->delete();
 			}
 		}
-		return redirect(route('person::list'));
+		return redirect(route('person::list'))->with('successful_delete', true);
 	}
 
 	function create() {
