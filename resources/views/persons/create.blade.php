@@ -23,7 +23,7 @@
 		@endif
 
 		@if (session('duplicate_err'))
-		<div class="alert alert-success">
+		<div class="alert alert-danger">
 			V databazi uz takovyto zaznam je.
 		</div>
 		@endif
