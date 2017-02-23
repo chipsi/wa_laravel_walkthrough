@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Person;
 use App\Models\Location;
+use App\Models\Person;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use function redirect;
+use function route;
+use function view;
 
 class PersonsList extends Controller
 {
+
+	private $formRules = [
+		'nickname' => 'required|max:100',
+		'first_name' => 'required|max:100',
+		'last_name' => 'required|max:100',
+		'id_location' => 'integer|nullable|exists:locations,id'
+	];
 
 	function show() {
 		$persons = Person::orderBy('last_name')->get();
@@ -34,14 +45,19 @@ class PersonsList extends Controller
 	}
 
 	function insert(Request $r) {
-		if($r->has('nickname') && $r->has('first_name') && $r->has('last_name')) {
+		$this->validate($r, $this->formRules);
+
+		try {
 			$p = new Person();
 			$p->nickname = $r->get('nickname');
 			$p->first_name = $r->get('first_name');
 			$p->last_name = $r->get('last_name');
 			$p->id_location = $r->get('id_location');
 			$p->save();
+		} catch(\Exception $e) {
+			return redirect(route('person::create'))->withInput($r->all)->with('duplicate_err', true);
 		}
+
 		return redirect(route('person::list'));
 	}
 
