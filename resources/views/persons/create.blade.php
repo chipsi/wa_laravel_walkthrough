@@ -40,8 +40,8 @@
 		@foreach($locations as $loc)
 		<option value="{{$loc->id}}" @if(old('id_location') == $loc->id) selected @endif>
 				{{$loc->city}}, {{$loc->street_name}} {{$loc->street_number}}
-	</option>
-	@endforeach
+		</option>
+		@endforeach
 </select>
 <br />
 

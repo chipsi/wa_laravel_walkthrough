@@ -29,7 +29,7 @@ která zhruba odpovídá části zadání z předmětu APV (tedy evidence osob a
 - na lokálním webovém serveru zkontrolovat, že aplikace běží (otevřít složku [http://locahost/laravel_demo/public](http://locahost/laravel_demo/public),
   mělo by se zobrazit jméno frameworku s odkazem na dokumentaci - welcome obrazovka).
 
-Může být nutné nastavit direktivu `RewriteBase` v souboru `.htaccess` na aktuální cestu k aplikaci
+Může být nutné nastavit direktivu `RewriteBase` v souboru `/public/.htaccess` na aktuální cestu k aplikaci
 např. `RewriteBase /~user/aplikace/public`.
 
 Framework se z Composeru stáhnul vč. připravených šablon, controllerů a migrací pro přihlašování, registrací uživatel a
@@ -42,11 +42,13 @@ Důležité adresáře a soubory:
 	- `/Console` - zde jsou uloženy vlastná příkazy pro Artisan (CLI)
 	- `/Http` - webová část aplikace
 	- `/Controllers` - kontrolery
-- `/config` - konfigurace různých součástí a funkcí frameworku (některé konfigurace jsou navíc importovány z /.env souboru - např. v /config/database.php najdete v konfiguraci MySQL volání funkce env(), která natáhne lokální konfigurace ze souboru /.env). Toto je výhodné pro nasazení aplikace v různých prostředích, lokálně chcete mít jiné přihlašovací údaje do DB než na vašem serveru.
+- `/config` - konfigurace různých součástí a funkcí frameworku (některé konfigurace jsou navíc importovány z /.env
+  souboru - např. v /config/database.php najdete v konfiguraci MySQL volání funkce env(), která natáhne lokální
+  konfigurace ze souboru /.env). Toto je výhodné pro nasazení aplikace v různých prostředích, lokálně chcete mít jiné přihlašovací údaje do DB než na vašem serveru.
 - `/database`
 	- `/migrations` - migrační skripty databáze
 	- `/seeds` - zde mohou být skripty pro naplnění DB testovacími daty
-- `/public`
+- `/public` - veřejná část aplikace, to co je opravdu přístupné přes HTTP
 - `/resources`
 	- `/assets` - zdrojové kódy frontendových knihoven
 	- `/lang` - lokalizace
@@ -58,7 +60,8 @@ Důležité adresáře a soubory:
 - `/artisan` - php skript realizující konzolu
 - `/composer.json` a `composer.lock` - informace o verzích PHP knihoven pro Composer
 - `/readme.md` - výchozí readme v markdownu (napište si vlastní)
-- `/package.json` - informace o verzích knihoven pro npm. Přes příkaz npm install lze tyto knihovny stáhnout a npm run watch se spustí Webpack a bude hlídat změny v resources/assets adresáři a vytvoří v public/js a public/css odpovídající minifikované soubory.
+- `/package.json` - informace o verzích knihoven pro npm. Přes příkaz `npm install` lze tyto knihovny stáhnout a `npm run watch`
+  se spustí Webpack a bude hlídat změny v resources/assets adresáři a vytvoří v public/js a public/css odpovídající minifikované soubory.
 - `/webpack.mix.js` - nastavení webpack
 
 ### JavaScriptové knihovny vyřeším jinak...
@@ -119,7 +122,7 @@ entitou `Person` a `Location` pomocí metod `$this->belongsTo()` (pro načtení 
 [Zdrojové kódy](https://github.com/lysek/wa_laravel_walkthrough/commit/5afa185ae5b4a14903fc415d9056c81678734fbf)
 
 ### Výpis osob
-Vložte pomocí Admineru nebo phpMyAdminu do databáze záznamy o nějakých osobách. Vytvořéme
+Vložte pomocí Admineru nebo phpMyAdminu do databáze záznamy o nějakých osobách. Vytvoříme
 [kontroler](https://laravel.com/docs/5.4/controllers) a šablonu, která data vypíše. Příkazem
 `php artisan make:controller PersonList` vznikne ve složce `/app/Http/Controllers` soubor `PersonsList.php`. Zde můžeme
 nadefinovat libovolnou metodu, kterou následně zpřístupníme pomocí webového routeru.
