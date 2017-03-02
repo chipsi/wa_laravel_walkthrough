@@ -281,6 +281,62 @@ mělo dělat metodou POST (aby vás útočník nemohl odhlásit GET metodou při
 
 [Zdrojové kódy](https://github.com/lysek/wa_laravel_walkthrough/commit/a9a66f9b1dc98e7031429d5f895f5140a5668bb3)
 
+### Editace osoby
+Do controlleru přidáme metodu pro vykreslení formuláře a pro uložení informací a vytvoříme prázdnou šablonu
+`/resources/views/persons/edit.blade.php`:
+
+	function edit(Request $r, $id) {
+		return view("persons/edit");
+	}
+
+	function update(Request $r, $id) {}
+
+Samozřejmě je potřeba rozšířit routing:
+
+	Route::get('/osoby/editace/{id}', 'PersonsList@edit')->name('persons::edit');
+	Route::post('/osoby/ulozit/{id}', 'PersonsList@update')->name('persons::update');
+
+Nyní můžeme vytvořit v aplikaci odkaz pro editaci:
+
+	<a href="{{route('persons::edit', ['id' => $person->id])}}" class="btn btn-primary">Editace</a>
+
+[Zdrojové kódy]()
+
+Do šablony je nutné předat osobu, kterou chceme editovat a seznam lokalit:
+
+	function edit(Request $r, $id) {
+		$p = Person::findOrFail($id);
+		$locations = Location::orderBy('city')->get();
+		return view("persons/edit", [
+			'person' => $p,
+			'locations' => $locations
+		]);
+	}
+
+Formulář v šabloně editace je skoro stejný jako formulář pro přidání osoby. Pro přidání výchozích hodnot s informacemi
+o osobě použijeme druhý argument funkce `old`, která primárně slouží k získání dat zaslaných minulým HTTP požadavkem,
+druhý parametr se použije tehdy, když předchozí HTTP požadavek tyto data neobsahuje. ID osoby předáme v URL:
+
+	<form action="{{route('person::update', ['id' => $person->id])}}" method="post">
+	</form>
+
+Uložení dat v metodě `update` je také skoro stejné, jen je nutné najít entitu v databázi podle ID, místo vytvoření nové.
+
+	function update(Request $r, $id) {
+		$this->validate($r, $this->formRules);
+		try {
+			$p = Person::findOrFail($id);
+			$p->nickname = $r->get('nickname');
+			$p->first_name = $r->get('first_name');
+			$p->last_name = $r->get('last_name');
+			$p->id_location = $r->get('id_location');
+			$p->save();
+		} catch(\Exception $e) {
+			return redirect(route('person::edit', ['id' => $id]))->withInput($r->all)->with('duplicate_err', true);
+		}
+		return redirect(route('person::list'));
+	}
+
 ## Poznámky
 
 ### Rozjetí projektu na jiném stroji (po stažení z Gitu)
