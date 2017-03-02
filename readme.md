@@ -353,5 +353,4 @@ nakonfigurovat SMTP server pro posílání pošty pouze na lokálním počítač
 
 # TODO
 - seedovani DB
-- editace osoby
 - testy?
