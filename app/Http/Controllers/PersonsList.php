@@ -62,10 +62,30 @@ class PersonsList extends Controller
 	}
 
 	function edit(Request $r, $id) {
-		return view("persons/edit");
+		$p = Person::findOrFail($id);
+		$locations = Location::orderBy('city')->get();
+
+		return view("persons/edit", [
+			'person' => $p,
+			'locations' => $locations
+		]);
 	}
 
 	function update(Request $r, $id) {
+		$this->validate($r, $this->formRules);
+
+		try {
+			$p = Person::findOrFail($id);
+			$p->nickname = $r->get('nickname');
+			$p->first_name = $r->get('first_name');
+			$p->last_name = $r->get('last_name');
+			$p->id_location = $r->get('id_location');
+			$p->save();
+		} catch(\Exception $e) {
+			return redirect(route('person::edit', ['id' => $id]))->withInput($r->all)->with('duplicate_err', true);
+		}
+
+		return redirect(route('person::list'));
 	}
 
 }
