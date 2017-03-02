@@ -1,7 +1,7 @@
 # Ukázka použití frameworku Laravel
 
-Tento projekt vznikl pro předmět WA. Tento průvodce ukáže základní použití frameworku Laravel pro vytvoření aplikace,
-která zhruba odpovídá části zadání z předmětu APV (tedy evidence osob a jejich adres).
+Tento projekt vznikl pro předmět WA na PEF MENDELU. Tento průvodce ukáže základní použití frameworku Laravel pro
+vytvoření aplikace, která zhruba odpovídá části zadání z předmětu APV (tedy evidence osob a jejich adres).
 
 ## Úvod
 
@@ -136,8 +136,9 @@ přidejte řádek `Route::get('/osoby', 'PersonsList@show')->name('person::list'
 
 [Zdrojové kódy](https://github.com/lysek/wa_laravel_walkthrough/commit/d6e3c44c91e228a0d39d5eae1af8eb46c110fd30)
 
-Metoda `name` nastaví routě jméno, pomocí kterého můžeme na tuto routu generovat odkazy pomocnou funkce
-`route(název, parametry = [])`. Výhoda je, že cestu můžeme změnit, ale název routy zůstane.
+Metoda `name` nastaví routě jméno, pomocí kterého můžeme na tuto routu generovat odkazy pomocí funkce
+`route(název, parametry = [])` - toto funguje i v šablonách, např.: {{route('person::list')}}. Výhoda je, že cestu
+můžeme změnit, ale název routy zůstane, takže jej není nutno dodatečně dohledávat a měnit.
 
 ### Smazání osoby
 Do šablony vložíme formulář s JavaScriptovým potvrzením. Tento formulář bude vykreslen v každém řádku tabulky a odešle
@@ -239,7 +240,11 @@ osoby. Tento mechanismus se obecně nazíva "flash zprávy".
 ### Vytvoříme layout a použijeme Bootstrap a jQuery
 Vytvoříme [layout](https://laravel.com/docs/5.4/blade#template-inheritance) stránky ve složce `/resources/views` pod
 názvem `layout.blade.php`. Vložíme zde základní strukturu stránky a připojíme [jQuery](http://jquery.com/)
-a [Bootstrap](http://getbootstrap.com) z CDN.
+a [Bootstrap](http://getbootstrap.com) z CDN. Kdybychom Bootstrap chtěli mít na svém hostingu, uložíme jej někam do
+složky public (např. `/public/css/bootstrap`). V hlavičce bychom potom soubor linkovali pomocí funkce
+[asset()](https://laravel.com/docs/5.4/helpers#method-asset), která vygeneruje správnou cestu do složky public.
+
+	<link rel="stylesheet" href="{{asset('css/app.css')}}">
 
 [Zdrojové kódy](https://github.com/lysek/wa_laravel_walkthrough/commit/1be064d92156a8f0fad8a1a0c31d8f34114d5e99)
 
@@ -290,4 +295,5 @@ nakonfigurovat SMTP server pro posílání pošty pouze na lokálním počítač
 
 # TODO
 - seedovani DB
+- editace osoby
 - testy?
