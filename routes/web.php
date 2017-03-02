@@ -23,4 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/osoby/vytvorit', 'PersonsList@create')->name('person::create');
 	Route::post('/osoby/pridat', 'PersonsList@insert')->name('person::insert');
+
+	Route::get('/osoby/editace/{id}', 'PersonsList@edit')->name('person::edit');
+	Route::post('/osoby/ulozit/{id}', 'PersonsList@update')->name('person::update');
 });

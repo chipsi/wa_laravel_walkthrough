@@ -61,4 +61,11 @@ class PersonsList extends Controller
 		return redirect(route('person::list'))->with('successful_insert', true);
 	}
 
+	function edit(Request $r, $id) {
+		return view("persons/edit");
+	}
+
+	function update(Request $r, $id) {
+	}
+
 }

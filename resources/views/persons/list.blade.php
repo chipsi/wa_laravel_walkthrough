@@ -20,6 +20,7 @@
 	<tr>
 		<th>Jméno</th>
 		<th>Adresa</th>
+		<th>Editovat</th>
 		<th>Smazat</th>
 	</tr>
 	@foreach($persons as $person)
@@ -30,6 +31,9 @@
 		@else
 		<td>Nema adresu</td>
 		@endif
+		<td>
+			<a href="{{route('person::edit', ['id' => $person->id])}}" class="btn btn-primary">Editace</a>
+		</td>
 		<td>
 			<form action="{{route('person::delete', ['id' => $person->id])}}" method="post" onsubmit="return confirm('Opravdu smazat?')">
 				{{ csrf_field() }}
