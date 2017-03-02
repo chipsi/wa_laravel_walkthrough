@@ -300,7 +300,7 @@ Nyní můžeme vytvořit v aplikaci odkaz pro editaci:
 
 	<a href="{{route('persons::edit', ['id' => $person->id])}}" class="btn btn-primary">Editace</a>
 
-[Zdrojové kódy]()
+[Zdrojové kódy](https://github.com/lysek/wa_laravel_walkthrough/commit/d57b00829d9f1ff31fff81d17c0f81a9f67ac05e)
 
 Do šablony je nutné předat osobu, kterou chceme editovat a seznam lokalit:
 
@@ -336,6 +336,8 @@ Uložení dat v metodě `update` je také skoro stejné, jen je nutné najít en
 		}
 		return redirect(route('person::list'));
 	}
+
+[Zdrojové kódy](https://github.com/lysek/wa_laravel_walkthrough/commit/ffccf04d20f7b603cfc6edc6c5cc1bad9621ae8b)
 
 ## Poznámky
 
